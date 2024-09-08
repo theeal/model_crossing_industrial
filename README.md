@@ -4,8 +4,14 @@ It is made for Raspberry pi Pico
 
 ## Requrements / Optional
 Optional: Raspberry pi Pico
-    If usede with arduino change these:
-    -
+
+    If used with arduino change these:
+    
+    - pinMode(XXX,  INPUT_PULLDOWN); to pinMode(XXX,  INPUT);
+    
+    also you may need to put a resistor see:
+    
+    https://docs.arduino.cc/built-in-examples/digital/Button/
 
 ### Requierd
 If used with Raspberry pi Pico setup Arduino IDE
