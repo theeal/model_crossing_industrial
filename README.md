@@ -23,16 +23,16 @@ https://github.com/theeal/SimRealy
 The trackdetection is activly free (1) and will be (0) when trains occupy
 
 ## Local Manuver
-Br1 Bells<br />
-Br2 Activate Crossing (starts to blink and sound
+**Br1** - Bells<br />
+**Br2** - Activate Crossing (starts to blink and sound
 
 ## Outputs
-WarnRi Warning Car Right (flashing)<br />
-WarnLe Warning Car Left  (flashing)<br />
-Bells  Sound / Bells<br />
+**WarnRi** - Warning Car Right (flashing)<br />
+**WarnLe** - Warning Car Left  (flashing)<br />
+**Bells**  - Sound / Bells<br />
 <br />
-VSiWh  Train Signal white (proceed)<br />
-VSiRe  Train Signal red   (Stop)<br />
+**VSiWh**  - Train Signal white (proceed)<br />
+**VSiRe**  - Train Signal red   (Stop)<br />
 
 # Logic
 [!NOTE]
