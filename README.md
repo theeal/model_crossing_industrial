@@ -2,36 +2,36 @@
 A basic rail crossing for low speeds, controlled by arduino code
 It is made for Raspberry pi Pico
 
-Requrements / Optional
+## Requrements / Optional
 Optional: Raspberry pi Pico
     If usede with arduino change these:
     -
 
-Requierd
+### Requierd
 If used with Raspberry pi Pico setup Arduino IDE
     https://arduino-pico.readthedocs.io
     https://github.com/earlephilhower/arduino-pico
 
-Library needed
+### Library needed
 https://github.com/theeal/SimRealy
 
 
 # How to connect
-
-# Trackdetections
-T = Isolation
-	Iv			Sv			IIv
-                Y
--------------T--|--T-------------
-                A
-
+## Trackdetections
+T = Isolation 
+	Iv			Sv			IIv 
+ 
+                Y 
+-------------T--|--T------------- 
+                A 
+ 
 The trackdetection is activly free (1) and will be (0) when trains occupy
 
-# Local Manuver
+## Local Manuver
 Br1 Bells
 Br2 Activate Crossing (starts to blink and sound
 
-# Outputs
+## Outputs
 WarnRi Warning Car Right (flashing)
 WarnLe Warning Car Left  (flashing)
 Bells  Sound / Bells
