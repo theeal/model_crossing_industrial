@@ -1,5 +1,20 @@
 # model_crossing_industrial
-A basic rail crossing for low speeds, controlled by arduino
+A basic rail crossing for low speeds, controlled by arduino code
+It is made for Raspberry pi Pico
+
+Requrements / Optional
+Optional: Raspberry pi Pico
+    If usede with arduino change these:
+    -
+
+Requierd
+If used with Raspberry pi Pico setup Arduino IDE
+    https://arduino-pico.readthedocs.io
+    https://github.com/earlephilhower/arduino-pico
+
+Library needed
+https://github.com/theeal/SimRealy
+
 
 # How to connect
 
