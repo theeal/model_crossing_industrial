@@ -12,18 +12,18 @@ bool Br1; //Closed (braken to mute bells)
 bool Br2; //Closed (braken to activate the Signalling)
 
 //Relays
-bool Iv;	//trackdetection from Iv  (activate)
-bool Sv;	//trackdetection at crossing (normally just 50m in real world)
-bool IIv;	//trackdetection from IIv (activate)
+bool North;	//trackdetection from North  (activate)
+bool Road;	//trackdetection at crossing (normally just 50m in real world)
+bool South;	//trackdetection from South (activate)
 bool Akv;	//Stop signalling
 bool Vv;	//Signalling
 
 //Help relay
 bool xVS;	//VS Lamp
 
-const int OccIv  =  2; // Iv
-const int OccSv  =  3; // Sv
-const int OccIIv =  4; // IIv
+const int OccNorth  =  2; // North
+const int OccRoad  =  3; // Road
+const int OccSouth =  4; // South
 const int BtnBr1 =  6; // Br1 Turn off Sound
 const int BtnBr2 =  5; // Br2 Start signalling
 
@@ -41,12 +41,12 @@ static void SRelayhandler(uint8_t Id, uint8_t RState) {
   if (RState == 0) {status=0;}
   switch (Id){
 
-	case 0: Iv  = RState; break;
-	case 1:	Sv  = RState; break;
-	case 2: IIv = RState; break;
-	case 3: Br1 = RState; break;
-    case 4: Br2 = RState; break;
-	case 5: Vv  = RState; break;
+	case 0: North = RState; break;
+	case 1:	Road  = RState; break;
+	case 2: South = RState; break;
+	case 3: Br1   = RState; break;
+    case 4: Br2   = RState; break;
+	case 5: Vv    = RState; break;
 
 } // End switch
 } // End SRelayhandler
@@ -56,9 +56,9 @@ static void SRelayhandler(uint8_t Id, uint8_t RState) {
   //                             int turnon,
   //                                       int turnoff,
   //                                               SRelayHandler_t handlerFn):
-  static SRelay SrIv       (0 ,0,500      ,10    , SRelayhandler);
-  static SRelay SrSv       (1 ,0,500      ,10    , SRelayhandler);
-  static SRelay SrIIv      (2 ,0,500      ,10    , SRelayhandler);
+  static SRelay SrNorth    (0 ,0,500      ,10    , SRelayhandler);
+  static SRelay SrRoad     (1 ,0,500      ,10    , SRelayhandler);
+  static SRelay SrSouth    (2 ,0,500      ,10    , SRelayhandler);
   static SRelay SrBr1      (3 ,0,10       ,10    , SRelayhandler);
   static SRelay SrBr2      (4 ,0,10       ,10    , SRelayhandler);
   static SRelay Vv_R       (5 ,0,0        ,100   , SRelayhandler);
@@ -75,9 +75,9 @@ bool State[4] = {false,false,false,false};
 void setup() {
 Serial.begin(9600); //USB
 
-  pinMode(OccIv,  INPUT_PULLDOWN);
-  pinMode(OccSv,  INPUT_PULLDOWN);
-  pinMode(OccIIv, INPUT_PULLDOWN);
+  pinMode(OccNorth,  INPUT_PULLDOWN);
+  pinMode(OccRoad,  INPUT_PULLDOWN);
+  pinMode(OccSouth, INPUT_PULLDOWN);
   pinMode(BtnBr1, INPUT_PULLDOWN);
   pinMode(BtnBr2, INPUT_PULLDOWN);
   
@@ -89,13 +89,13 @@ Serial.begin(9600); //USB
   }
 
   static void pollSRelays() {
-  SrIv.update	(digitalRead(OccIv));
-  SrSv.update	(digitalRead(OccSv));
-  SrIIv.update	(digitalRead(OccIIv));
-  SrBr1.update	(digitalRead(BtnBr1));
-  SrBr2.update	(digitalRead(BtnBr2));
-  //		Vv = Br2 *  (Iv *  IIv +  Akv *  Sv) *  (Vv +  Sv)
-  Vv_R.update	(Br2 && (Iv && IIv || Akv && Sv) && (Vv || Sv));
+  SrNorth.update (digitalRead(OccNorth));
+  SrRoad.update  (digitalRead(OccRoad));
+  SrSouth.update (digitalRead(OccSouth));
+  SrBr1.update   (digitalRead(BtnBr1));
+  SrBr2.update   (digitalRead(BtnBr2));
+  //		Vv = Br2 *  (North *  South +  Akv *  Road) *  (Vv +  Road)
+  Vv_R.update    (Br2 && (North && South || Akv && Road) && (Vv || Road));
   }
 
   bool blink (int timer,int rate) {
@@ -114,9 +114,9 @@ Serial.begin(9600); //USB
   currentMillis = millis();  // Loop Starttime
  
   //Automatik (se även static void pollSRelays()
-  //Akv = (/Iv *  IIv +  Iv *  /IIv) *  (/Sv +  Akv)
-  Akv =   (!Iv && IIv || Iv && !IIv) && (!Sv || Akv);
-  xVS =   ((!Akv || !Sv) && !Vv);
+  //Akv = (/North *  South +  North *  /South) *  (/Road +  Akv)
+  Akv =   (!North && South || North && !South) && (!Road || Akv);
+  xVS =   ((!Akv || !Road) && !Vv);
   
   digitalWrite(WarnRi,(!Vv && blink(bl80,80)));
   digitalWrite(WarnLe,(!Vv && !blink(bl80,80)));
@@ -124,7 +124,7 @@ Serial.begin(9600); //USB
   digitalWrite(Bells,(!Vv && Br1));
 
   digitalWrite(VSiRe,(!xVS));
-  //			VS =  (/Akv +  /Sv) *  /Vv
+  //			VS =  (/Akv +  /Road) *  /Vv
   digitalWrite(VSiWh,(xVS));
 
 if (debug_text){
@@ -142,7 +142,7 @@ if (debug_text){
 	Serial.write(12);//FF Form Feed, New Page
 	//#### End Serial terminal
 
-	Serial.print("Iv");Serial.print("\t");Serial.print(Iv);Serial.print("\t");Serial.print("Sv");Serial.print("\t");Serial.print(Sv);Serial.print("\t");Serial.print("IIv");Serial.print("\t");Serial.print(IIv);
+	Serial.print("North");Serial.print("\t");Serial.print(North);Serial.print("\t");Serial.print("Road");Serial.print("\t");Serial.print(Road);Serial.print("\t");Serial.print("South");Serial.print("\t");Serial.print(South);
 	Serial.print("\n\r");
 	Serial.print("Akv");Serial.print("\t");Serial.print(Akv);
 	Serial.print("\n\r");
