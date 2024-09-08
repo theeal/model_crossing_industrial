@@ -18,12 +18,8 @@ https://github.com/theeal/SimRealy
 
 # How to connect
 ## Trackdetections
-T = Isolation 
-	Iv			Sv			IIv 
- 
-                Y 
--------------T--|--T------------- 
-                A 
+![Track sections](https://github.com/theeal/model_crossing_industrial/blob/main/over_wiev.png)
+
  
 The trackdetection is activly free (1) and will be (0) when trains occupy
 
@@ -40,7 +36,9 @@ VSiWh  Train Signal white (proceed)
 VSiRe  Train Signal red   (Stop)
 
 # Logic
-
+[!NOTE]
+Logic will soon be added
+<!--
   Vv = Br2 || (Iv && IIv || Akv && Sv) && (Vv || Sv)
  #Vv relay off delayed
 
@@ -82,3 +80,4 @@ VarnLe = (!Vv && !blink(bl80,80)
   Bells = !Vv && Br1
   Vv      Br1    Bells
 --|/|-----|/|-----( )--
+-->
