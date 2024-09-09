@@ -35,5 +35,4 @@ The trackdetection is activly free (1) and will be (0) when trains occupy
 **VSiRe**  - Train Signal red   (Stop)<br />
 
 # Logic
-[!NOTE]
-Logic will soon be added
+![Control Locic](https://github.com/theeal/model_crossing_industrial/blob/main/Crossing%20logic.pdf)
