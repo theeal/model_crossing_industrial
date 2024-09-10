@@ -1,11 +1,18 @@
 # model_crossing_industrial
-A basic rail crossing for low speeds, controlled by arduino code
-It is made for Raspberry pi Pico
+A basic rail crossing for low speeds, controlled by arduino code.
+It's based on a real industrial crossing
+This is made for Raspberry pi Pico
+
+[!NOTE]
+This logic do not have any passage check.
 
 ## Requrements / Optional
 Optional: Raspberry pi Pico<br />
     If used with arduino change these:<br />
-    - pinMode(XXX,  INPUT_PULLDOWN); to pinMode(XXX,  INPUT);<br />
+    **coment** **out**:<br />
+    **//**#include "pico/stdlib.h"<br />
+    **change**:<br />
+    - pinMode(XXX,  **INPUT_PULLDOWN**); to pinMode(XXX,  **INPUT**);<br />
     also you may need to put a resistor see:<br />
     https://docs.arduino.cc/built-in-examples/digital/Button/
 
@@ -35,4 +42,4 @@ The trackdetection is activly free (1) and will be (0) when trains occupy
 **VSiRe**  - Train Signal red   (Stop)<br />
 
 # Logic
-![Control Locic](https://github.com/theeal/model_crossing_industrial/blob/main/Crossing%20logic.pdf)
+![Control Locic](https://github.com/theeal/model_crossing_industrial/blob/main/Crossing%20logic.png)
