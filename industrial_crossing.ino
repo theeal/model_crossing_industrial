@@ -1,4 +1,4 @@
-#include "pico/stdlib.h"
+#include "pico/stdlib.h"  //coment out for arduino
 #include <arduino.h>
 #include <SimRelay.h>
 
@@ -75,7 +75,10 @@ bool State[4] = {false,false,false,false};
 void setup() {
 Serial.begin(9600); //USB
 
-  pinMode(OccNorth,  INPUT_PULLDOWN);
+//Change between:INPUT, INPUT_PULLUP, INPUT_PULLDOWN see:
+//https://www.arduino.cc/reference/en/language/variables/constants/inputoutputpullup/
+//https://arduino-pico.readthedocs.io/en/latest/digital.html
+  pinMode(OccNorth,  INPUT_PULLDOWN); 
   pinMode(OccRoad,  INPUT_PULLDOWN);
   pinMode(OccSouth, INPUT_PULLDOWN);
   pinMode(BtnBr1, INPUT_PULLDOWN);
